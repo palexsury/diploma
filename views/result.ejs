@@ -1,0 +1,36 @@
+<head>
+    <meta charset="utf-8">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+</head>
+
+<body>
+    <nav class="navtop">
+        <div>
+            <h1>Система голосования</h1>
+            <a href="/pollboard"><i class="fas fa-poll-h"></i>Голосования</a>
+            <a href="/users/logout"><i calss="fas fa-poll-h"></i>Выйти</a>
+        </div>
+    </nav>
+
+    <div class="content poll-result">
+        <h2>
+            <%=poll.title%>
+        </h2>
+        <p>
+            <%=poll.description%>
+        </p>
+        <div class="wrapper">
+            <% const numResults = poll.results.map(function (item) { return parseInt(item, 10); }) %>
+            <% const count = numResults.reduce((partial_sum, a) => partial_sum + a, 0) %>
+            <% for(var i=0; i < poll.answers.length; i++) {%>
+                <div class="poll-question">
+                    <p><%=poll.answers[i]%> <span>(<%=poll.results[i]%>)</span></p>
+                    <% var widthSetup = Math.round((numResults[i] / count) * 1000)%>
+                    <div class="result-bar" style="width:<%=widthSetup%>">
+                </div>                
+            <%}%>
+        </div>
+    </div>
+
+</body>

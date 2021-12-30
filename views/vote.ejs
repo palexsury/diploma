@@ -1,0 +1,52 @@
+<head>
+    <meta charset="utf-8">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+</head>
+<body>
+<nav class="navtop">
+    <div>
+        <h1>Система голосования</h1>
+        <a href="/pollboard"><i class="fas fa-poll-h"></i>Голосования</a>
+        <a href="/users/logout"><i calss="fas fa-poll-h"></i>Выйти</a>
+    </div>
+</nav>
+
+<div class="content poll-vote">
+    <form action="/pollboard/vote" method="POST">
+        <input type=hidden id='encryptedBallot' name='encryptedBallot' />
+        <input type=hidden id='userEmail' name='userEmail' value='<%=user.email%>'/>
+        <input type=hidden id='pollId' name='pollId' value='<%=poll.id%>'/>
+        <input type=hidden id='answerId' name='answerId' />        
+    <h2>
+        <%=poll.title%>
+    </h2>
+    <p>
+        <%=poll.description%>
+    </p>
+        <% for(var i=0; i < poll.answers.length; i++) {%>
+            <label>
+                <input type="radio" id="<%=Number(i)+Number(1)%>" name="poll_answer" value="<%=poll.answers[i]%>"
+                    <%=i===0 ? ' checked' : '' %>>
+                <%=poll.answers[i]%>
+            </label>
+            <% } %>
+                <div>
+                    <input id="make-vote" type="submit" value="Отправить голос">
+                </div>
+    </form>
+</div>
+</body>
+
+<script src="/openpgp.js"> </script>
+<script src="/functions.js"> </script>
+
+<script>
+    document.forms[0].onsubmit = (e) => {
+        e.preventDefault();
+        (async () => {
+            await signAndEncryptballot(<%-JSON.stringify(poll.publicPollKey) %>);
+            e.target.submit();
+        })();
+    }
+</script>

@@ -1,0 +1,46 @@
+<head>
+    <meta charset="utf-8">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+</head>
+
+<body>
+    <nav class="navtop">
+        <div>
+            <h1>Система голосования</h1>
+            <a href="/pollboard"><i class="fas fa-poll-h"></i>Голосования</a>
+            <a href="/users/logout"><i calss="fas fa-poll-h"></i>Выйти</a>
+        </div>
+    </nav>
+
+    <div class="content home">
+        <h2>Голосования</h2>
+        <p>Вы можете проголосовать, выбрав опрос из списка</p>
+        <% if (user.role==='admin' ) {%>
+            <a href="/pollboard/create" class="create-poll">Создать голосование</a>
+            <% } %>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Название</td>
+                            <td>Варианты</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i < polls.length; i++) {%>
+                            <tr>
+                                <td> <%= polls[i].id %> </li>
+                                <td><%= polls[i].title %></li>
+                                <td><%= polls[i].answers %></li>
+                                <td class="actions">
+                                    <a href="/pollboard/view?id=<%=polls[i].id%>" class="view" title="Посмотреть результаты"><i class="fas fa-eye-h"></i></a>
+                                    <a href="/pollboard/vote?id=<%=polls[i].id%>" class="vote" title="Сделать выбор"><i class="fas fa-poll fa-xs"></i></a>
+                                </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+    </div>
+</body>

@@ -1,0 +1,34 @@
+<head>
+    <meta charset="utf-8">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+</head>
+
+<body>
+
+    <nav class="navtop">
+        <div>
+            <h1>Система голосования</h1>
+            <a href="/pollboard"><i class="fas fa-poll-h"></i>Голосования</a>
+            <a href="/users/logout"><i calss="fas fa-poll-h"></i>Выйти</a>
+        </div>
+    </nav>
+
+    <div class="content update">
+        <h2>Создать голосование</h2>
+        <form action="/pollboard/create" method="post">
+            <label for="title">Название</label>
+            <input type="text" name="title" id="title" placeholder="Название" required>
+            <label for="description">Описание</label>
+            <input type="text" name="description" id="Description" placeholder="Описание">
+            <label for="answers">Варианты ответа (по одному на каждой строке)</label>
+            <textarea name="answers" id="answers" placeholder="Варианты ответа" required></textarea>
+            <input type="submit" value="Создать голосование">
+        </form>
+        <% if (false) {%>
+            <p>
+                <%=msg %>
+            </p>
+            <% } %>
+    </div>
+</body>
